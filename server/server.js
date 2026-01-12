@@ -5,7 +5,7 @@ import { Server } from 'socket.io';
 import path from "path";
 import { fileURLToPath } from "url";
 
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
@@ -45,11 +45,6 @@ else{
 }
 
 // ----------- Deployment  ------------
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 const roomMembers = new Map();
 
 const emitRoomCount = (room) => {
@@ -133,6 +128,6 @@ io.on('connection', (socket) => {
   });
 })
 
-server.listen(port, () => {
-  console.log("server listening on 3000")
+server.listen(PORT, () => {
+  console.log("server listening on port: ",PORT)
 })
